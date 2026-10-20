@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About | Urban Air Quality Intelligence Platform</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+.about-hero{
+
+background:linear-gradient(135deg,#0F766E,#2563EB);
+
+padding:70px;
+
+border-radius:30px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:50px;
+
+color:white;
+
+overflow:hidden;
+
+}
+
+.about-left{
+
+width:60%;
+
+}
+
+.about-left h1{
+
+font-size:58px;
+
+line-height:1.15;
+
+margin:20px 0;
+
+}
+
+.about-left p{
+
+font-size:18px;
+
+line-height:1.8;
+
+opacity:.95;
+
+margin-bottom:30px;
+
+}
+
+.about-btn{
+
+display:inline-block;
+
+padding:14px 28px;
+
+background:white;
+
+color:#2563eb;
+
+text-decoration:none;
+
+font-weight:600;
+
+border-radius:30px;
+
+transition:.3s;
+
+}
+
+.about-btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+.about-circle{
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:100px;
+
+backdrop-filter:blur(12px);
+
+}
+
+.story-card{
+
+background:white;
+
+padding:40px;
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-bottom:40px;
+
+}
+
+.story-card p{
+
+font-size:17px;
+
+line-height:2;
+
+color:#555;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+
+🌍 Urban AQI Intelligence
+
+</div>
+
+<ul class="nav-links">
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/dashboard">Dashboard</a></li>
+
+<li><a href="/forecast">Forecast</a></li>
+
+<li><a href="/health">Health</a></li>
+
+<li><a class="active" href="/about">About</a></li>
+
+</ul>
+
+</nav>
+
+<div class="container">
+
+<section class="about-hero">
+
+<div class="about-left">
+
+<div class="badge">
+
+Environmental Intelligence Platform
+
+</div>
+
+<h1>
+
+Cleaner Air Begins With Better Data.
+
+</h1>
+
+<p>
+
+Monitor urban air quality, predict pollution trends, and receive health insights through one intelligent platform built for smarter environmental decisions.
+
+</p>
+
+<a href="/dashboard" class="about-btn">
+
+Explore Dashboard →
+
+</a>
+
+</div>
+
+<div class="about-circle">
+
+🌎
+
+</div>
+
+</section>
+<!-- =====================================
+OUR STORY
+===================================== -->
+
+<section class="story-card">
+
+<div class="section-header">
+
+<div>
+
+<h2>Our Story</h2>
+
+<p>Building smarter cities through environmental intelligence.</p>
+
+</div>
+
+</div>
+
+<p>
+
+Air pollution affects millions of people every day, yet environmental data is often difficult to understand. We created the <strong>Urban Air Quality Intelligence Platform</strong> to make air quality information simple, accessible, and actionable. By combining live monitoring, predictive analytics, and health insights, the platform empowers individuals to make informed decisions that support healthier lifestyles.
+
+</p>
+
+</section>
+
+
+
+
+
+<!-- =====================================
+WHAT WE OFFER
+===================================== -->
+
+<section>
+
+<div class="section-header">
+
+<div>
+
+<h2>What We Offer</h2>
+
+<p>Everything you need to understand urban air quality.</p>
+
+</div>
+
+</div>
+
+<div class="kpi-grid">
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+
+🌫
+
+</div>
+
+<div class="kpi-content">
+
+<h4>Live Monitoring</h4>
+
+<p>
+
+Track real-time AQI and pollutant levels from monitoring stations.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+
+📈
+
+</div>
+
+<div class="kpi-content">
+
+<h4>Predictive Analytics</h4>
+
+<p>
+
+Forecast future air quality using machine learning models.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+
+❤️
+
+</div>
+
+<div class="kpi-content">
+
+<h4>Health Insights</h4>
+
+<p>
+
+Receive personalized health recommendations based on AQI.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<br>
+<!-- =====================================
+PLATFORM SNAPSHOT
+===================================== -->
+
+<section class="panel">
+
+<div class="section-header">
+
+<div>
+
+<h2>Platform Snapshot</h2>
+
+<p>A quick overview of what powers the platform.</p>
+
+</div>
+
+</div>
+
+<div class="kpi-grid">
+
+<div class="kpi-card">
+
+<div class="kpi-content">
+
+<h1>24×7</h1>
+
+<h4>Live Monitoring</h4>
+
+<p>Continuous air quality updates.</p>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-content">
+
+<h1>18</h1>
+
+<h4>Key Features</h4>
+
+<p>Environmental and health indicators.</p>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-content">
+
+<h1>AI</h1>
+
+<h4>Prediction Engine</h4>
+
+<p>Machine learning powered forecasting.</p>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-content">
+
+<h1>100%</h1>
+
+<h4>Interactive</h4>
+
+<p>Modern dashboard experience.</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<br>
+
+<!-- =====================================
+TECHNOLOGIES USED
+===================================== -->
+
+<section>
+
+<div class="section-header">
+
+<div>
+
+<h2>Technologies Used</h2>
+
+<p>
+Technologies powering the Urban Air Quality Intelligence Platform.
+</p>
+
+</div>
+
+</div>
+
+<div class="kpi-grid">
+
+<!-- Python -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🐍
+</div>
+
+<div class="kpi-content">
+
+<h4>Python</h4>
+
+<p>
+Used for data processing, machine learning, and backend development.
+</p>
+
+</div>
+
+</div>
+
+<!-- Flask -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🌐
+</div>
+
+<div class="kpi-content">
+
+<h4>Flask</h4>
+
+<p>
+Builds APIs and delivers real-time predictions through the web application.
+</p>
+
+</div>
+
+</div>
+
+<!-- Machine Learning -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🤖
+</div>
+
+<div class="kpi-content">
+
+<h4>Machine Learning</h4>
+
+<p>
+Random Forest and ARIMA models predict future Air Quality Index values.
+</p>
+
+</div>
+
+</div>
+
+<!-- Chart.js -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+📊
+</div>
+
+<div class="kpi-content">
+
+<h4>Chart.js</h4>
+
+<p>
+Creates interactive charts for AQI trends and forecast visualization.
+</p>
+
+</div>
+
+</div>
+
+<!-- Pandas -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🐼
+</div>
+
+<div class="kpi-content">
+
+<h4>Pandas</h4>
+
+<p>
+Performs data cleaning, preprocessing, and feature engineering.
+</p>
+
+</div>
+
+</div>
+
+<!-- OpenWeather -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🌦
+</div>
+
+<div class="kpi-content">
+
+<h4>OpenWeather API</h4>
+
+<p>
+Provides live weather and air quality information for monitoring.
+</p>
+
+</div>
+
+</div>
+
+<!-- Frontend -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+💻
+</div>
+
+<div class="kpi-content">
+
+<h4>HTML • CSS • JavaScript</h4>
+
+<p>
+Builds a responsive and interactive user interface.
+</p>
+
+</div>
+
+</div>
+
+<!-- AI Health Engine -->
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🧠
+</div>
+
+<div class="kpi-content">
+
+<h4>AI Health Engine</h4>
+
+<p>
+Generates personalized health assessments using AQI and user profile.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<br>
+
+
+
+<!-- =====================================
+HOW IT WORKS
+===================================== -->
+
+<section class="panel">
+
+<div class="section-header">
+
+<div>
+
+<h2>How It Works</h2>
+
+<p>From environmental data to actionable health insights.</p>
+
+</div>
+
+</div>
+
+<div style="display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:20px;
+text-align:center;">
+
+<div>
+
+<div style="font-size:50px;">🌍</div>
+
+<h4>Collect</h4>
+
+<p>Live AQI Data</p>
+
+</div>
+
+<div style="font-size:35px;color:#2563eb;">→</div>
+
+<div>
+
+<div style="font-size:50px;">⚙️</div>
+
+<h4>Process</h4>
+
+<p>Clean & Analyze</p>
+
+</div>
+
+<div style="font-size:35px;color:#2563eb;">→</div>
+
+<div>
+
+<div style="font-size:50px;">🤖</div>
+
+<h4>Predict</h4>
+
+<p>AI Forecast</p>
+
+</div>
+
+<div style="font-size:35px;color:#2563eb;">→</div>
+
+<div>
+
+<div style="font-size:50px;">❤️</div>
+
+<h4>Protect</h4>
+
+<p>Health Guidance</p>
+
+</div>
+
+</div>
+
+</section>
+
+<br>
+<!-- =====================================
+OUR VISION
+===================================== -->
+
+<section class="story-card">
+
+<div class="section-header">
+
+<div>
+
+<h2>Our Vision</h2>
+
+<p>Creating healthier cities through intelligent environmental solutions.</p>
+
+</div>
+
+</div>
+
+<p>
+
+We envision a future where environmental intelligence is accessible to everyone.
+By combining real-time monitoring, predictive analytics, and health-focused insights,
+our platform aims to help individuals, communities, and organizations make informed
+decisions that contribute to cleaner air and healthier lives.
+
+</p>
+
+</section>
+
+</div>
+
+
+
+
+
+<!-- =====================================
+FOOTER
+===================================== -->
+
+<footer>
+
+<div style="max-width:1100px;margin:auto;text-align:center;">
+
+<h2 style="margin-bottom:10px;">
+
+🌍 Urban Air Quality Intelligence Platform
+
+</h2>
+
+<p style="font-size:17px;opacity:.9;">
+
+AI-powered environmental monitoring for smarter and healthier communities.
+
+</p>
+
+<br>
+
+<div class="hero-stats" style="justify-content:center;">
+
+<div class="hero-chip">🌫 Live AQI</div>
+
+<div class="hero-chip">📈 Forecasting</div>
+
+<div class="hero-chip">❤️ Health Insights</div>
+
+<div class="hero-chip">🤖 AI Analytics</div>
+
+</div>
+
+<br>
+
+<p style="opacity:.7;">
+
+© 2026 Urban Air Quality Intelligence Platform. All Rights Reserved.
+
+</p>
+
+</div>
+
+</footer>
+
+</body>
+
+</html>

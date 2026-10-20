@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Forecast | Urban Air Quality Intelligence Platform</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+
+🌍 Urban AQI Intelligence
+
+</div>
+
+<ul class="nav-links">
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/dashboard">Dashboard</a></li>
+
+<li><a class="active" href="/forecast">Forecast</a></li>
+
+<li><a href="/health">Health</a></li>
+
+<li><a href="/about">About</a></li>
+
+</ul>
+
+</nav>
+
+<div class="container">
+
+<!-- ================= HERO ================= -->
+
+<div class="hero-dashboard">
+
+<div class="hero-left">
+
+<span class="badge">
+
+📈 Machine Learning Forecast
+
+</span>
+
+<h1>
+
+AI Air Quality Forecast
+
+</h1>
+
+<p>
+
+Predict tomorrow's Air Quality Index using Machine Learning
+and visualize future pollution trends for smarter
+environmental decision-making.
+
+</p>
+
+</div>
+
+<div class="hero-right">
+
+<div class="hero-circle">
+
+📈
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= STATION ================= -->
+
+<div style="display:flex;
+justify-content:flex-start;
+margin:20px 0 15px;">
+
+<div>
+
+<p style="
+font-size:14px;
+font-weight:600;
+color:#5f6b7a;
+margin-bottom:8px;">
+
+Select Monitoring Station
+
+</p>
+
+<select
+id="station"
+onchange="loadForecast()"
+style="
+width:260px;
+padding:14px 18px;
+border:none;
+border-radius:12px;
+background:white;
+font-size:16px;
+font-weight:500;
+box-shadow:0 10px 25px rgba(0,0,0,.12);
+outline:none;
+cursor:pointer;">
+
+{% for station in stations %}
+
+<option value="{{ station }}">
+
+{{ station }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+</div>
+
+<!-- ================= KPI ================= -->
+
+
+<div class="kpi-grid">
+
+    <!-- Today's AQI -->
+
+    <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+            🌍
+
+        </div>
+
+        <div class="kpi-content">
+
+            <h4>
+
+                Today's AQI
+
+            </h4>
+
+            <h2 id="todayAQI">
+
+                --
+
+            </h2>
+
+            <p id="todayStatus"
+               class="status-good">
+
+                Live Air Quality
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Tomorrow AQI -->
+
+    <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+            📈
+
+        </div>
+
+        <div class="kpi-content">
+
+            <h4>
+
+                Tomorrow's Forecast
+
+            </h4>
+
+            <h2 id="forecastAQI">
+
+                --
+
+            </h2>
+
+            <p id="forecastStatus"
+               class="status-good">
+
+                AI Prediction
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- AQI Trend -->
+
+    <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+            📊
+
+        </div>
+
+        <div class="kpi-content">
+
+            <h4>
+
+                AQI Trend
+
+            </h4>
+
+            <h2 id="changeAQI">
+
+                --
+
+            </h2>
+
+            <p id="changeText">
+
+                Loading...
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Confidence -->
+
+    <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+            🎯
+
+        </div>
+
+        <div class="kpi-content">
+
+            <h4>
+
+                AI Confidence
+
+            </h4>
+
+            <h2 id="confidence">
+
+                --
+
+            </h2>
+
+            <p>
+
+                Reliable Forecast
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= FORECAST GRAPH ================= -->
+
+<div class="graph-card">
+
+    <div class="section-header">
+
+        <h2>
+
+            📈 AQI Forecast Trend
+
+        </h2>
+
+        <p>
+    Today's AQI + 7-Day AI Forecast
+</p>
+
+    </div>
+
+    <canvas id="forecastChart"></canvas>
+
+</div>
+
+<br>
+
+<!-- ================= AI EXPLANATION ================= -->
+
+<div class="panel">
+
+    <h2>
+
+        🤖 Why Did AI Predict This?
+
+    </h2>
+
+    <p id="aiSummary"
+       style="margin-bottom:25px;
+              color:#5f6b7a;
+              line-height:1.8;">
+
+        Loading explanation...
+
+    </p>
+
+    <div class="info-grid">
+
+        <!-- Reasons -->
+
+        <div>
+
+            <h3 style="margin-bottom:15px;">
+
+                📌 Key Reasons
+
+            </h3>
+
+            <ul id="aiReasons">
+
+                <li>Loading...</li>
+
+            </ul>
+
+        </div>
+
+        <!-- Feature Importance -->
+
+        <div>
+
+            <h3 style="margin-bottom:15px;">
+
+                📊 Most Influential Factors
+
+            </h3>
+
+            <div id="featureImportance">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+
+
+<!-- ================= 7 DAY FORECAST ================= -->
+
+<div class="panel">
+
+    <h2>📅 7-Day AQI Forecast</h2>
+
+    <table style="width:100%; border-collapse:collapse; margin-top:20px;">
+
+        <thead>
+
+            <tr style="background:#2563eb; color:white;">
+
+                <th style="padding:15px;">Day</th>
+
+                <th>AQI</th>
+
+                <th>Category</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="forecastTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<br>
+
+<!-- ================= SUMMARY ================= -->
+
+<div class="info-grid">
+
+    <!-- AI Summary -->
+
+    <div class="panel">
+
+        <h2>
+
+            🤖 AI Forecast Analysis
+
+        </h2>
+
+        <p id="forecastSummary"
+        style="line-height:2;font-size:17px;">
+
+            Loading AI forecast...
+
+        </p>
+
+    </div>
+
+    <!-- Prediction Details -->
+
+    <div class="panel">
+
+        <h2>
+
+            📋 Prediction Insights
+
+        </h2>
+
+        <div class="data-row">
+
+            <span>
+
+                🌍 Today's AQI
+
+            </span>
+
+            <span id="todayDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                📈 Tomorrow's AQI
+
+            </span>
+
+            <span id="tomorrowDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                📊 AQI Change
+
+            </span>
+
+            <span id="differenceDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                🏷 Expected Category
+
+            </span>
+
+            <span id="categoryDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                🎯 AI Confidence
+
+            </span>
+
+            <span id="confidenceDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                🤖 Forecast Model
+
+            </span>
+
+            <span id="methodDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+        <div class="data-row">
+
+            <span>
+
+                📅 Historical Data Used
+
+            </span>
+
+            <span id="historyDetail">
+
+                --
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="panel">
+
+    <div class="section-header">
+
+        <h2>
+
+            💡 AI Recommended Actions
+
+        </h2>
+
+        <p>
+
+            Personalized recommendations based on tomorrow's predicted AQI.
+
+        </p>
+
+    </div>
+
+    <div id="forecastRecommendations"
+         class="info-grid">
+
+    </div>
+
+</div>
+
+<footer>
+
+    <h3>
+
+        Predict Today. Protect Tomorrow.
+
+    </h3>
+
+    <p>
+
+        © 2026 Urban Air Quality Intelligence Platform
+
+    </p>
+
+</footer>
+
+<!-- Forecast JavaScript -->
+<script src="{{ url_for('static', filename='js/forecast.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Air Quality Intelligence Platform</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🌍 Urban AQI Intelligence</div>
+
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a class="active" href="/dashboard">Dashboard</a></li>
+        <li><a href="/forecast">Forecast</a></li>
+        <li><a href="/health">Health</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+<!-- ================= HERO HEADER ================= -->
+
+<div class="hero-dashboard">
+
+    <div class="hero-left">
+
+        <span class="badge">
+            🌍 AI Powered Air Quality Platform
+        </span>
+
+        <h1>
+            Urban Air Quality Intelligence
+        </h1>
+
+        <p>
+            Real-Time Air Quality Monitoring • Machine Learning Forecasting •
+            Personalized Health Risk Assessment
+        </p>
+
+        <div class="hero-stats">
+
+            <div class="hero-chip">
+                📍 Chennai
+            </div>
+
+            <div class="hero-chip">
+                🤖 ML Forecast
+            </div>
+
+            <div class="hero-chip">
+                ❤️ Health Alerts
+            </div>
+
+            <div class="hero-chip">
+                ⚡ Live Data
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <div class="hero-circle">
+
+            🌍
+
+        </div>
+
+    </div>
+
+</div>
+<div class="station-card">
+<h2>📍 Monitoring Station</h2>
+<p>Choose an air quality monitoring station.</p>
+
+<select id="station" onchange="loadData()">
+<option>Kodungaiyur</option>
+<option>Koyambedu</option>
+<option>Perungudi</option>
+<option>Royapuram</option>
+<option>Manali</option>
+</select>
+
+<br><br>
+
+<button onclick="loadData()">🔄 Refresh Dashboard</button>
+
+</div>
+
+
+<div class="kpi-grid">
+
+<div class="kpi-card">
+<div class="kpi-icon">🌍</div>
+<div class="kpi-content">
+<h4>Today's AQI</h4>
+<h2 id="todayAQI">--</h2>
+<p id="todayCategory">Loading...</p>
+</div>
+</div>
+
+<div class="kpi-card">
+<div class="kpi-icon">📈</div>
+<div class="kpi-content">
+<h4>Tomorrow AQI</h4>
+<h2 id="forecastAQI">--</h2>
+<p id="forecastCategory">Loading...</p>
+</div>
+</div>
+
+<div class="kpi-card">
+<div class="kpi-icon">❤️</div>
+<div class="kpi-content">
+<h4>Health Risk</h4>
+<h2 id="risk">--</h2>
+<p>Personalized Assessment</p>
+</div>
+</div>
+
+<div class="kpi-card">
+<div class="kpi-icon">🌡</div>
+<div class="kpi-content">
+<h4>Temperature</h4>
+<h2><span id="tempCard">--</span>°C</h2>
+<p>Current Weather</p>
+</div>
+</div>
+
+</div>
+
+<div class="gauge-card">
+<div class="section-header">
+<h2>🌍 Live AQI Gauge</h2>
+<p>Current Air Quality Index</p>
+</div>
+<div id="aqiGauge"></div>
+</div>
+
+
+<div class="info-grid">
+
+<div class="panel">
+<h2>🌫 Pollutant Levels</h2>
+
+<div class="data-row"><span>PM2.5</span><span id="pm25">--</span></div>
+<div class="data-row"><span>PM10</span><span id="pm10">--</span></div>
+<div class="data-row"><span>NO₂</span><span id="no2">--</span></div>
+<div class="data-row"><span>SO₂</span><span id="so2">--</span></div>
+<div class="data-row"><span>CO</span><span id="co">--</span></div>
+
+</div>
+
+<div class="panel">
+
+<h2>🌦 Weather Conditions</h2>
+
+<div class="data-row">
+<span>🌡 Temperature</span>
+<span><span id="tempWeather">--</span> °C</span>
+</div>
+
+<div class="data-row">
+<span>💧 Humidity</span>
+<span><span id="humidity">--</span> %</span>
+</div>
+
+<div class="data-row">
+<span>🌬 Wind Speed</span>
+<span><span id="wind">--</span> km/h</span>
+</div>
+
+<div class="data-row">
+<span>🌪 Pressure</span>
+<span><span id="pressure">--</span> hPa</span>
+</div>
+
+</div>
+
+</div>
+<footer>
+<p>© 2026 Urban Air Quality Intelligence Platform</p>
+<p>Real-Time Air Quality Monitoring | ML Forecasting | Health Impact Prediction</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>

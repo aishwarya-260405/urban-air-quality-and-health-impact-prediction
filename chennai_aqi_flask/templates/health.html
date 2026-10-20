@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Health Assessment | Urban Air Quality</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+
+.hero-health{
+
+background:linear-gradient(135deg,#0f766e,#2563eb);
+
+border-radius:30px;
+
+padding:55px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+margin-bottom:40px;
+
+box-shadow:0 25px 55px rgba(37,99,235,.25);
+
+overflow:hidden;
+
+}
+
+.hero-health-left{
+
+width:68%;
+
+}
+
+.hero-health h1{
+
+font-size:52px;
+
+margin-bottom:18px;
+
+line-height:1.2;
+
+}
+
+.hero-health p{
+
+font-size:18px;
+
+line-height:1.8;
+
+opacity:.95;
+
+margin-bottom:25px;
+
+}
+
+.hero-health-right{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.health-circle{
+
+width:210px;
+
+height:210px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(12px);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:100px;
+
+animation:float 4s ease infinite;
+
+}
+
+.profile-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.08);
+
+margin-bottom:35px;
+
+}
+
+.profile-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:25px;
+
+}
+
+.input-group{
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+.input-group label{
+
+font-weight:600;
+
+margin-bottom:8px;
+
+color:#374151;
+
+}
+
+.input-group input,
+
+.input-group select{
+
+height:55px;
+
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#f8fbff;
+
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+font-size:16px;
+
+}
+
+.input-group input:focus,
+
+.input-group select:focus{
+
+box-shadow:0 0 20px rgba(37,99,235,.2);
+
+}
+
+.generate-btn{
+
+width:100%;
+
+height:56px;
+
+border:none;
+
+border-radius:14px;
+
+background:linear-gradient(135deg,#16c79a,#2196f3);
+
+color:white;
+
+font-size:17px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+margin-top:32px;
+
+}
+
+.generate-btn:hover{
+
+transform:translateY(-4px);
+
+}
+
+@media(max-width:768px){
+
+.hero-health{
+
+flex-direction:column;
+
+text-align:center;
+
+gap:35px;
+
+padding:35px;
+
+}
+
+.hero-health-left{
+
+width:100%;
+
+}
+
+.hero-health h1{
+
+font-size:34px;
+
+}
+
+.profile-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+
+🌍 Air Quality
+
+</div>
+
+<ul class="nav-links">
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/dashboard">Dashboard</a></li>
+
+<li><a href="/forecast">Forecast</a></li>
+
+<li><a class="active" href="/health">Health</a></li>
+
+</ul>
+
+</nav>
+
+<div class="container">
+
+<section class="hero-health">
+
+<div class="hero-health-left">
+
+<div class="badge">
+
+🩺 AI Powered Personalized Health Intelligence
+
+</div>
+
+<h1>
+
+Live Health Assessment
+
+</h1>
+
+<p>
+
+Analyze today's air quality, evaluate your personal health risk, and receive AI-powered recommendations based on your age, medical history, lifestyle, and current AQI conditions.
+
+</p>
+
+<div class="hero-stats">
+
+<div class="hero-chip">
+
+🌫 Live AQI
+
+</div>
+
+<div class="hero-chip">
+
+❤️ Health Risk
+
+</div>
+
+<div class="hero-chip">
+
+🤖 AI Recommendation
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-health-right">
+
+<div class="health-circle">
+
+🩺
+
+</div>
+
+</div>
+
+</section>
+<!-- =========================================
+LIVE HEALTH ASSESSMENT
+========================================= -->
+
+<section class="profile-card fade-up">
+
+<div class="section-header">
+
+<div>
+
+<h2>🩺 Live Health Assessment</h2>
+
+<p>
+
+Enter your health details to generate an AI-powered personalized health report.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="profile-grid">
+
+<div class="input-group">
+
+<label>📍 Monitoring Station</label>
+
+<select id="station">
+
+{% for station in stations %}
+
+<option value="{{ station }}">
+
+{{ station }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label>🎂 Age</label>
+
+<input
+type="number"
+id="age"
+value="25"
+min="1"
+max="100">
+
+</div>
+
+<div class="input-group">
+
+<label>👤 Gender</label>
+
+<select id="gender">
+
+<option>Male</option>
+
+<option>Female</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label>🫁 Existing Disease</label>
+
+<select id="disease">
+
+<option>None</option>
+
+<option>Asthma</option>
+
+<option>COPD</option>
+
+<option>Heart Disease</option>
+
+<option>Diabetes</option>
+
+<option>Hypertension</option>
+
+<option>Pregnancy</option>
+
+</select>
+
+</div>
+
+<div class="input-group">
+
+<label>🚬 Smoking Habit</label>
+
+<select id="smoking">
+
+<option value="never">Never Smoked</option>
+
+<option value="former">Former Smoker</option>
+
+<option value="current">Current Smoker</option>
+
+</select>
+</div>
+
+<div class="input-group">
+
+<label>&nbsp;</label>
+
+<button
+class="generate-btn"
+onclick="generateHealthAdvice()">
+
+❤️ Generate Personalized Health Report
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+<!-- =========================================
+LIVE HEALTH REPORT
+========================================= -->
+
+<section class="recommendation-card fade-up" id="healthResult">
+
+<div class="section-header">
+
+<div>
+
+<h2>🩺 AI Health Report</h2>
+
+<p>
+Personalized health assessment generated using live AQI,
+forecast prediction and your health profile.
+</p>
+
+</div>
+
+</div>
+
+<div class="kpi-grid">
+
+<div class="kpi-card">
+
+<div class="kpi-icon">🌫</div>
+
+<div class="kpi-content">
+
+<h4>Current AQI</h4>
+
+<h2 id="riskAQI">--</h2>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">📈</div>
+
+<div class="kpi-content">
+
+<h4>Forecast AQI</h4>
+
+<h2 id="forecastAQI">--</h2>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">❤️</div>
+
+<div class="kpi-content">
+
+<h4>Risk Score</h4>
+
+<h2 id="riskScore">--</h2>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">⚠️</div>
+
+<div class="kpi-content">
+
+<h4>Risk Level</h4>
+
+<h2 id="riskLevel">--</h2>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">🌍</div>
+
+<div class="kpi-content">
+
+<h4>Exposure</h4>
+
+<h2 id="exposureLevel">--</h2>
+
+</div>
+
+</div>
+
+<div class="kpi-card">
+
+<div class="kpi-icon">🧪</div>
+
+<div class="kpi-content">
+
+<h4>Primary Pollutant</h4>
+
+<h2 id="primaryPollutant">--</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+    <h2>🤖 AI Health Summary</h2>
+
+    <div style="
+        display:grid;
+        grid-template-columns:280px 1fr;
+        gap:40px;
+        align-items:center;">
+
+        <!-- Gauge -->
+
+        <div style="text-align:center;">
+
+            <div style="
+                width:220px;
+                height:220px;
+                margin:auto;
+                border-radius:50%;
+                background:conic-gradient(
+                    #22c55e 0deg,
+                    #facc15 120deg,
+                    #f97316 220deg,
+                    #ef4444 360deg
+                );
+                display:flex;
+                justify-content:center;
+                align-items:center;">
+
+                <div style="
+                    width:170px;
+                    height:170px;
+                    border-radius:50%;
+                    background:white;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;">
+
+                    <h1 id="gaugeScore"
+                        style="
+                        margin:0;
+                        font-size:48px;
+                        color:#1e3a8a;">
+
+                        --
+
+                    </h1>
+
+                    <span id="gaugeLevel"
+                          style="
+                          font-weight:600;
+                          color:#555;">
+
+                        Waiting...
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Summary -->
+
+        <div>
+
+            <p id="riskDescription"
+               style="
+               line-height:2;
+               font-size:17px;">
+
+                Generate your report to see your personalized health assessment.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+
+<div class="panel health-analysis">
+
+    <h2>🧠 AI Health Impact Analysis</h2>
+
+    <p class="analysis-subtitle">
+        Based on your health profile, current air quality, forecast and pollutant exposure.
+    </p>
+
+    <div id="healthAnalysis">
+
+    </div>
+
+    <div id="dynamicTips" class="info-grid">
+
+    </div>
+
+</div>
+
+
+<div class="assessment-bottom">
+
+<div class="risk-box">
+
+<h3>📋 Why This Result?</h3>
+
+<ul id="riskReasons">
+
+<li>Your report explanation will appear here.</li>
+
+</ul>
+
+</div>
+
+<div class="recommend-box">
+
+<h3>💡 Personal Recommendations</h3>
+
+<ul id="recommendations">
+
+<li>Your personalized recommendations will appear here.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="assessment-bottom">
+
+<div class="risk-box">
+
+<h3>🌤 Weather Advisory</h3>
+
+<ul id="weatherInsights">
+
+<li>Weather analysis will appear here.</li>
+
+</ul>
+
+</div>
+
+<div class="recommend-box">
+
+<h3>📈 Forecast Insights</h3>
+
+<ul id="forecastInsights">
+
+<li>Forecast analysis will appear here.</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="assessment-bottom">
+
+    <div class="risk-box">
+
+        <h3>🌫 Pollutant Insights</h3>
+
+        <ul id="pollutantInsights">
+
+            <li>Pollutant analysis will appear here.</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h3>
+
+🌍 Urban Air Quality & Health Impact Prediction
+
+</h3>
+
+<p>
+
+AI-powered environmental intelligence platform providing
+real-time AQI monitoring, forecasting and personalized
+health recommendations.
+
+</p>
+
+</footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/health.js') }}"></script>
+
+</body>
+
+</html>

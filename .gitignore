@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+venv311/
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+*.env
+
+# Temporary files
+*.tmp
+*.log
+
+# Old local project copies
+Chennai_AQI_Project/
+Chennai_AQI_Project-1/
+
+# Dissertation files
+Journal.docx
